@@ -12,6 +12,7 @@ public class UserEntity {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="OwnerId")
 	private Long ownerId;
 	

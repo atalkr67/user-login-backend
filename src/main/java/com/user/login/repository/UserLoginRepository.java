@@ -10,7 +10,7 @@ import com.user.login.entity.UserEntity;
 
 @Repository
 public interface UserLoginRepository extends JpaRepository<UserEntity, Long> {
-	@Query(value="select o from owner o")
+	@Query(value="select o from UserEntity o")
 	List<UserEntity> getOwnerList();
 	
 }
