@@ -1,7 +1,13 @@
 package com.user.login.entity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name="users")
@@ -13,24 +19,21 @@ public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="UserId")
+	@Column(name="USER_ID")
 	private Long userId;
 	
-	@Column(name="UserName")
+	@Column(name="USER_NAME")
 	private String name;
 	
-	@Column(name="EmailId")
+	@Column(name="EMAIL_ID")
 	private String emailId;
 	
-	@Column(name="Address")
-	private String address;
-	
-	@Column(name="Designation")
+	@Column(name="DESIGNATION")
 	private String designation;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="address")
-	private AddressEntity addressEntity;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="ADDRESS", referencedColumnName = "ADDRESS_ID")
+	private AddressEntity address;
 
 	public Long getUserId() {
 		return userId;
@@ -56,11 +59,11 @@ public class UserEntity {
 		this.emailId = emailId;
 	}
 
-	public String getAddress() {
+	public AddressEntity getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(AddressEntity address) {
 		this.address = address;
 	}
 
@@ -72,12 +75,10 @@ public class UserEntity {
 		this.designation = designation;
 	}
 
-	public AddressEntity getAddressEntity() {
-		return addressEntity;
+	@Override
+	public String toString() {
+		return "\"UserEntity\": {\n\t\"userId\":" + userId + ", \n\t\"name\":" + name + ", \n\t\"emailId\":" + emailId
+				+ ", \n\t\"designation\":" + designation + ", \n\t\"address\":" + address + "\n}";
 	}
-
-	public void setAddressEntity(AddressEntity addressEntity) {
-		this.addressEntity = addressEntity;
-	}
-
+	
 }

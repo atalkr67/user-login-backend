@@ -1,35 +1,32 @@
 package com.user.login.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="address")
 public class AddressEntity {
 
+	public AddressEntity() {
+		super();
+	}
+	
 	public AddressEntity(int addressId, String address) {
 		super();
 		this.addressId = addressId;
 		this.address = address;
-		// TODO Auto-generated constructor stub
 	}
 	@Id
-	@Column(name="address_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="ADDRESS_ID")
 	private int addressId;
 	
-	@Column(name="address")
-	private String address; 
-	
-	@OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "address")
-	private List<UserEntity> userEntity = new ArrayList<>();
+	@Column(name="ADDRESS")
+	private String address;
 
 	public int getAddressId() {
 		return addressId;
@@ -47,13 +44,9 @@ public class AddressEntity {
 		this.address = address;
 	}
 
-	public List<UserEntity> getUserEntity() {
-		return userEntity;
-	}
-
-	public void setUserEntity(List<UserEntity> userEntity) {
-		this.userEntity = userEntity;
-	}
-	
+	@Override
+	public String toString() {
+		return "\"AddressEntity\": {\n\t\"addressId\":" + addressId + ", \n\t\"address\":" + address + "\n}";
+	}	
 	
 }
