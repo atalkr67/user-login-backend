@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.user.login.entity.AddressEntity;
 import com.user.login.entity.UserEntity;
 import com.user.login.repository.UserLoginRepository;
 import com.user.login.service.UserLoginService;
@@ -25,6 +26,8 @@ import com.user.login.service.UserLoginService;
 @RequestMapping("/getUsers")
 public class UserLoginController {
 	
+	Random random = new Random();
+
 	@Autowired
 	UserLoginRepository userLoginRepository;
 	
@@ -33,10 +36,6 @@ public class UserLoginController {
 
 	@GetMapping("/getAllUsers")
 	public ResponseEntity<List<UserEntity>> getData() {
-//		if(userLoginRepository.findAll().isEmpty()){
-//			IntStream.range(0,1000).forEach(i -> saveRandomUser());
-//		}
-		//return ResponseEntity.ok(userLoginRepository.findAll());
 		return new ResponseEntity<>(userLoginService.userLoginService(), HttpStatus.OK);
 	}
 	
@@ -52,19 +51,20 @@ public class UserLoginController {
 
 	@GetMapping("/saveRandomUser")
 	public ResponseEntity<UserEntity> saveRandomUser() {
+		AddressEntity address = new AddressEntity();
+		address.setAddress("Ashiyana Nagar");
+		
 		UserEntity user = new UserEntity();
-		Random random = new Random();
-		user.setUserId(183);
-		user.setAddress("Bangalore");
 		user.setDesignation("Software Engineer");
 		user.setName("Atal Kumar");
 		user.setEmailId("atalkr67gmail.com");
+		user.setAddress(address);
+		
 		return ResponseEntity.ok(userLoginRepository.save(user));
 	}
 
 	public String nextString(int n){
 		StringBuilder builder = new StringBuilder();
-		Random random = new Random();
 		for(int i=0;i<n;i++){
 			builder.append(((char)(random.nextInt(26)+64)));
 		}
