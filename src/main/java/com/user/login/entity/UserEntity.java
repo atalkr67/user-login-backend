@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="owner")
+@Table(name="users")
 public class UserEntity {
 	
 	public UserEntity() {
@@ -13,43 +13,47 @@ public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="OwnerId")
-	private Long ownerId;
+	@Column(name="UserId")
+	private Long userId;
 	
-	@Column(name="FirstName")
-	private String firstName;
+	@Column(name="UserName")
+	private String name;
 	
-	@Column(name="LastName")
-	private String lastName;
+	@Column(name="EmailId")
+	private String emailId;
 	
 	@Column(name="Address")
 	private String address;
 	
 	@Column(name="Designation")
 	private String designation;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="address")
+	private AddressEntity addressEntity;
 
-	public Long getOwnerId() {
-		return ownerId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
+	public void setUserId(int userId) {
+		this.userId = (long) userId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getEmailId() {
+		return emailId;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 	public String getAddress() {
@@ -67,7 +71,13 @@ public class UserEntity {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
-	
-	
+
+	public AddressEntity getAddressEntity() {
+		return addressEntity;
+	}
+
+	public void setAddressEntity(AddressEntity addressEntity) {
+		this.addressEntity = addressEntity;
+	}
 
 }
